@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Hỗ Trợ Truy Nã - LSPD</title>
+  <link rel="stylesheet" href="style.css">
+  <head><body>
+    <script>
+document.addEventListener("DOMContentLoaded", () => {
+  const me = JSON.parse(localStorage.getItem("lspd_me") || "{}");
+  const manageLink = document.querySelector('a[href="manage.html"]');
+  
+  if (manageLink && me.role !== "Admin") {
+    manageLink.style.display = "none"; // Ẩn menu quản lý
+  }
+});
+</script>
+
+  </body></head>
+  <style>
+    .toidanh-box { border:1px solid #f0c040; border-radius:8px; padding:10px; margin:10px; flex:1; min-width:250px; }
+    .toidanh-box h3 { margin:0 0 8px; color:#c47a00; }
+    .toidanh-box ul { list-style:none; padding:0; margin:0; }
+    .toidanh-box li { 
+      padding:6px 10px; margin:4px 0; 
+      background:#fffdf5; border-radius:5px; 
+      cursor:pointer; transition:0.2s;
+    }
+    .toidanh-box li:hover { background:#ffe9c7; }
+    .grid { display:flex; flex-wrap:wrap; gap:10px; }
+    .result-box {
+      border:2px solid red; border-radius:20px;
+      padding:15px; margin:15px 0; min-height:120px;
+      background:#fff; font-size:16px;
+    }
+    .btn { padding:8px 16px; border:none; border-radius:8px; cursor:pointer; font-weight:bold; }
+    .btn.green { background:#2ecc71; color:#fff; }
+    .btn.red { background:#e74c3c; color:#fff; margin-left:10px; }
+    .options { display:flex; gap:15px; margin:15px 0; flex-wrap:wrap; }
+    .options label { display:flex; align-items:center; gap:6px; }
+    input[type="number"], input[type="text"], textarea { padding:6px; border:1px solid #ccc; border-radius:5px; }
+    textarea { width:100%; min-height:60px; resize:vertical; }
+  </style>
+</head>
+<body>
+<header class="navbar">
+  <a href="dashboard.html">Trang Chủ</a> | 
+  <a href="duty.html">Chấm Công</a> | 
+  <a href="bail.html">Bảo Lãnh Tội Phạm</a> | 
+  <a href="support.html">Hỗ Trợ Xử Án</a> | 
+  <a href="wanted.html">Hỗ Trợ Truy Nã</a> | 
+  <a href="leave.html">Đơn Xin Nghỉ Phép</a> | 
+  <a href="salary.html">💰 Hệ Số Lương</a> | 
+  <a href="manage.html" id="navManage">Quản Lý</a> | 
+  <a href="#" id="btnLogout">Đăng xuất</a>
+</header>
+<main class="dashboard">
+  <h2>Hỗ Trợ Truy Nã</h2>
+
+  <!-- Ô nhập thông tin -->
+  <div class="options">
+    <label>Tên: <input type="text" id="inputName" placeholder="Nhập tên"></label>
+    <label>CCCD: <input type="text" id="inputCCCD" placeholder="Nhập CCCD"></label>
+  </div>
+
+  <!-- Ô nhập bằng chứng -->
+  <div class="options" style="flex-direction:column; align-items:flex-start; width:100%;">
+  </div>
+
+  <!-- Khung kết quả -->
+  <div class="result-box" id="resultBox">
+    <p><b>Tên:</b> <span id="resName"></span></p>
+    <p><b>CCCD:</b> <span id="resCCCD"></span></p>
+    <p><b>Tội Danh:</b> <span id="crimeList"></span></p>
+    <p><b>Mức Án:</b> <span id="sentence">0</span> phút</p>
+    <p><b>Bằng chứng:</b> <span id="resEvidence"></span></p>
+  </div>
+
+  <div style="margin-bottom:15px;">
+    <button class="btn green" id="btnCopy">Sao Chép Toàn Bộ</button>
+    <button class="btn green" id="btnCopyCrimes">Sao Chép Chỉ Tội Danh</button>
+    <button class="btn red" id="btnReset">Reset</button>
+  </div>
+
+  <!-- Ô tìm kiếm -->
+  <input type="text" id="searchCrime" placeholder="Tìm tội danh..." style="padding:6px; margin:10px; width:250px;">
+
+  <!-- Danh sách tội danh -->
+  <div class="grid">
+    <div class="toidanh-box" data-penalty="20">
+      <h3>Mức Độ 1 (20p)</h3>
+      <ul>
+        <li>Cản trở người thi hành công vụ</li>
+        <li>Hỗ trợ đồng bọn, trợ giúp tội phạm</li>
+        <li>Không giao nộp hung khí gây án</li>
+        <li>Tàng trữ hoặc sử dụng Giáp trái phép</li>
+        <li>Giả dạng, tự xưng là người nhà nước</li>
+        <li>Gây rối trật tự công cộng</li>
+        <li>Trộm cắp tài sản công dân</li>
+        <li>Phá hoại tài sản nhà nước</li>
+        <li>Sử dụng nấm đấm gây rối trật tự công cộng</li>
+        <li>Gây rối trước trụ sở cơ quan nhà nước</li>
+      </ul>
+    </div>
+
+    <div class="toidanh-box" data-penalty="30">
+      <h3>Mức Độ 2 (30p)</h3>
+      <ul>
+        <li>Nhập cư trái phép</li>
+        <li>Tàng trữ chất cấm trái phép (Cây thảo dược)</li>
+        <li>Vu khống người khác</li>
+        <li>Có lời lẽ xúc phạm đến danh dự, nhân phẩm người khác</li>
+        <li>Sử dụng vũ khí thô sơ nơi công cộng</li>
+        <li>Sử dụng vũ khí nóng nơi công cộng</li>
+        <li>Lừa đảo chiếm đoạt tài sản người khác</li>
+        <li>Chống đối người thi hành công vụ</li>
+        <li>Xâm nhập trụ sở, nơi làm việc ban ngành nhà nước</li>
+        <li>Xúc phạm Sĩ quan cảnh sát</li>
+        <li>Gây thương tích chưa nghiêm trọng cho người khác</li>
+        <li>Sử dụng phương tiện gây thương tích chưa nghiêm trọng</li>
+      </ul>
+    </div>
+
+    <div class="toidanh-box" data-penalty="60">
+      <h3>Mức Độ 3 (60p)</h3>
+      <ul>
+        <li>Tấn công người khác gây thương tích nghiêm trọng</li>
+        <li>Sử dụng vũ khí tấn công Cảnh sát</li>
+        <li>Sử dụng vũ khí tấn công Quân đội</li>
+        <li>Sử dụng vũ khí tấn công Giảng viên Học viện(PA)</li>
+        <li>Sử dụng vũ khí tấn công Nhân viên MW</li>
+        <li>Sử dụng vũ khí tấn công FIB </li>
+        <li>Mua bán vũ khí trái phép</li>
+      </ul>
+    </div>
+
+    <div class="toidanh-box" data-penalty="120">
+      <h3>Mức Độ 4 (120p)</h3>
+      <ul>
+        <li>Tấn công Nhân viên Y Tế (EMS)</li>
+        <li>Tấn công Cán bộ cấp cao, Quản lý ban ngành thuộc Nhà nước</li>
+        <li>Có lời nói, hành động đe doạ Nhân viên Chính Phủ</li>
+        <li>Tấn công nhân viên báo chí</li>
+      </ul>
+    </div>
+
+    <div class="toidanh-box" data-penalty="180">
+      <h3>Mức Độ 5 (180p)</h3>
+      <ul>
+        <li>Lợi dụng quyền ra toà để bỏ trốn hoặc bỏ trốn trong thời gian được tại ngoại chờ ra toà<li>
+        <li>Tấn công Thống Đốc, Phó Thống Đốc, Nhân viên Chính Phủ<li>
+        <li>Đột nhập Trụ sở làm việc Học Viện Quốc Gia</li>
+        <li>Đột nhập Trụ sở làm việc Nhà Tù</li>
+        <li>Đột nhập Trụ sở làm việc Quân Khu</li>
+      </ul>
+    </div>
+
+    <div class="toidanh-box" data-penalty="200">
+      <h3>Mức Độ 6 (200p)</h3>
+      <ul>
+       <li>Bạo Động Thành Phố</li>
+      <li>Tấn công trụ sở, nơi làm việc thuộc Ban ngành Nhà nước</li>
+      </ul>
+    </div>
+    <div class="toidanh-box" data-penalty="180">
+      <h3>Quy Phạm Quy Tắc Ngành(180p) Không Phạt Bill</h3>
+      <ul>
+       <li>Bạo Động Thành Phố</li>
+      <li>Tấn công trụ sở, nơi làm việc thuộc Ban ngành Nhà nước</li>
+      </ul>
+    </div>
+  </div>
+</main>
+
+<script>
+  let totalMinutes = 0;
+  let crimeArray = [];
+
+  function updateSentence() {
+    document.getElementById('sentence').innerText = totalMinutes;
+  }
+
+  // Cập nhật tên, CCCD, bằng chứng
+  document.getElementById('inputName').addEventListener('input', e=>{
+    document.getElementById('resName').innerText = e.target.value;
+  });
+  document.getElementById('inputCCCD').addEventListener('input', e=>{
+    document.getElementById('resCCCD').innerText = e.target.value;
+  });
+  document.getElementById('inputEvidence').addEventListener('input', e=>{
+    document.getElementById('resEvidence').innerText = e.target.value;
+  });
+
+  // Click vào tội danh
+  document.querySelectorAll('.toidanh-box li').forEach(li=>{
+    li.addEventListener('click', ()=>{
+      const penalty = parseInt(li.closest('.toidanh-box').dataset.penalty);
+      totalMinutes += penalty;
+      crimeArray.push(li.innerText);
+      document.getElementById('crimeList').innerText = crimeArray.join(", ");
+      updateSentence();
+    });
+  });
+
+  // Reset
+  document.getElementById('btnReset').addEventListener('click', ()=>{
+    totalMinutes = 0; crimeArray = [];
+    document.getElementById('crimeList').innerText = "";
+    document.getElementById('sentence').innerText = "0";
+    document.getElementById('resName').innerText = "";
+    document.getElementById('resCCCD').innerText = "";
+    document.getElementById('resEvidence').innerText = "";
+    document.getElementById('inputName').value = "";
+    document.getElementById('inputCCCD').value = "";
+    document.getElementById('inputEvidence').value = "";
+  });
+
+  // Copy toàn bộ
+  document.getElementById('btnCopy').addEventListener('click', ()=>{
+    const text = 
+`Tên: ${document.getElementById('resName').innerText}
+CCCD: ${document.getElementById('resCCCD').innerText}
+Tội Danh: ${document.getElementById('crimeList').innerText}
+Mức Án: ${document.getElementById('sentence').innerText} phút
+Bằng chứng: ${document.getElementById('resEvidence').innerText}`;
+    navigator.clipboard.writeText(text).then(()=> alert("Đã sao chép:\n\n" + text));
+  });
+
+  // Copy chỉ tội danh
+  document.getElementById('btnCopyCrimes').addEventListener('click', ()=>{
+    const crimes = document.getElementById('crimeList').innerText || "";
+    navigator.clipboard.writeText(crimes).then(()=> alert("Đã sao chép tội danh:\n\n" + crimes));
+  });
+
+  // Search lọc
+  document.getElementById('searchCrime').addEventListener('input', e=>{
+    const keyword = e.target.value.toLowerCase();
+    document.querySelectorAll('.toidanh-box li').forEach(li=>{
+      li.style.display = li.innerText.toLowerCase().includes(keyword) ? "" : "none";
+    });
+  });
+</script>
+</body>
+</html>
+<!DOCTYPE html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Đơn Xin Nghỉ Phép - LSPD</title>
+  <link rel="stylesheet" href="style.css">
+  <head><body>
+    <script>
+document.addEventListener("DOMContentLoaded", () => {
+  const me = JSON.parse(localStorage.getItem("lspd_me") || "{}");
+  const manageLink = document.querySelector('a[href="manage.html"]');
+  
+  if (manageLink && me.role !== "Admin") {
+    manageLink.style.display = "none"; // Ẩn menu quản lý
+  }
+});
+</script>
+  </body></head>
+  <style>
+    body {
+      background: url("background.jpg") no-repeat center center fixed;
+      background-size: cover;
+      font-family: Arial, sans-serif;
+    }
+    .form-box {
+      border:2px solid #f0c040; border-radius:10px;
+      padding:20px; margin:20px auto;
+      max-width:1000px; background:rgba(255,255,255,0.9);
+      box-shadow:0 4px 15px rgba(0,0,0,0.3);
+    }
+    .form-box h2 {
+      text-align:center; margin-bottom:20px; color:#c47a00;
+    }
+    .form-grid {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:15px;
+    }
+    .form-group { display:flex; flex-direction:column; }
+    .form-group label { font-weight:bold; margin-bottom:5px; }
+    .form-group input, .form-group select, .form-group textarea {
+      padding:8px; border:1px solid #ccc; border-radius:6px;
+    }
+    .btn { padding:10px 20px; border:none; border-radius:8px; cursor:pointer; font-weight:bold; }
+    .btn.green { background:#c47a00; color:#fff; }
+    .btn.red { background:#e74c3c; color:#fff; margin-left:10px; }
+    .actions { text-align:center; margin-top:20px; }
+  </style>
+</head>
+<body>
+<header class="navbar">
+  <a href="dashboard.html">Trang Chủ</a> | 
+  <a href="duty.html">Chấm Công</a> | 
+  <a href="bail.html">Bảo Lãnh Tội Phạm</a> | 
+  <a href="support.html">Hỗ Trợ Xử Án</a> | 
+  <a href="wanted.html">Hỗ Trợ Truy Nã</a> | 
+  <a href="leave.html">Đơn Xin Nghỉ Phép</a> | 
+  <a href="salary.html">💰 Hệ Số Lương</a> | 
+  <a href="manage.html" id="navManage">Quản Lý</a> | 
+  <a href="#" id="btnLogout">Đăng xuất</a>
+</header>
+
+
+<main class="dashboard">
+  <form class="form-box" id="leaveForm">
+    <h2>Đơn Xin Nghỉ Phép</h2>
+    <div class="form-grid">
+      <div class="form-group">
+        <label for="cuctruong">Cục Trưởng:</label>
+        <input type="text" id="cuctruong" value="Im Morel">
+      </div>
+
+      <div class="form-group">
+        <label for="phocuctruong">Phó Cục Trưởng:</label>
+        <input type="text" id="phocuctruong" value="Ray Moon, Hieurat Apluc">
+      </div>
+
+      <div class="form-group">
+        <label for="doitruong">Đội Trưởng:</label>
+        <select id="doitruong">
+          <option>Không có</option>
+          <option>Cuong Maxx</option>
+          <option>Kiet Truongg</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="doipho">Đội Phó:</label>
+        <select id="doipho">
+          <option>Không có</option>
+          <option>Khang Kairis</option>
+          <option>Tobi Huynh</option>
+          <option>Nguyen Black</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="ten">Tôi (ingame):</label>
+        <input type="text" id="ten" placeholder="Tên ingame...">
+      </div>
+
+      <div class="form-group">
+        <label for="chucvu">Chức vụ:</label>
+        <select id="chucvu">
+          <option value="Đội trưởng">Đội trưởng</option>
+          <option value="Phó đội trưởng">Phó đội trưởng</option>
+          <option value="Cảnh sát viên">Cảnh sát viên</option>
+          <option value="Thực Tập">Thực Tập</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="sohieu">Số hiệu:</label>
+        <input type="text" id="sohieu" placeholder="Tự Điền...">
+      </div>
+
+      <div class="form-group">
+        <label for="rank">Quân hàm:</label>
+        <select id="rank">
+          <option value="Hạ sĩ">Hạ sĩ</option>
+          <option value="Trung sĩ">Trung sĩ</option>
+          <option value="Thượng sĩ">Thượng sĩ</option>
+          <option value="Thiếu úy">Thiếu úy</option>
+          <option value="Trung úy">Trung úy</option>
+          <option value="Thượng úy">Thượng úy</option>
+          <option value="Đại úy">Đại úy</option>
+          <option value="Thiếu tá">Thiếu tá</option>
+          <option value="Trung tá">Trung tá</option>
+          <option value="Thượng tá">Thượng tá</option>
+          <option value="Đại tá">Đại tá</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="ngaynghi">Ngày Xin Nghỉ:</label>
+        <input type="date" id="ngaynghi">
+      </div>
+      <div class="form-group">
+        <label for="ngaylai">Ngày Quay Lại:</label>
+        <input type="date" id="ngaylai">
+      </div>
+    </div>
+
+    <div class="form-group" style="margin-top:15px;">
+      <label for="lydo">Lý do:</label>
+      <textarea id="lydo" rows="3" placeholder="Nhập lý do..."></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="kyt">Ký tên:</label>
+      <input type="text" id="kyt" placeholder="Tên ingame hoặc tag discord...">
+    </div>
+
+    <div class="actions">
+      <button type="button" class="btn green" id="btnCopy">Sao Chép</button>
+      <button type="reset" class="btn red">Reset</button>
+    </div>
+  </form>
+</main>
+
+<script>
+  document.getElementById("btnCopy").addEventListener("click", () => {
+    const text = 
+`ĐƠN XIN NGHỈ PHÉP
+Cục Trưởng: ${document.getElementById("cuctruong").value}
+Phó Cục Trưởng: ${document.getElementById("phocuctruong").value}
+Đội Trưởng: ${document.getElementById("doitruong").value}
+Đội Phó: ${document.getElementById("doipho").value}
+Tôi (ingame): ${document.getElementById("ten").value}
+Chức vụ: ${document.getElementById("chucvu").value}
+Số hiệu: ${document.getElementById("sohieu").value}
+Quân hàm: ${document.getElementById("rank").value}
+Ngày Xin Nghỉ: ${document.getElementById("ngaynghi").value}
+Ngày Quay Lại: ${document.getElementById("ngaylai").value}
+Lý do: ${document.getElementById("lydo").value}
+Ký tên: ${document.getElementById("kyt").value}`;
+
+    navigator.clipboard.writeText(text).then(() => {
+      alert("Đã sao chép đơn nghỉ phép:\n\n" + text);
+    });
+  });
+</script>
+</body>
+</html>

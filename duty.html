@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Chấm Công - LSPD</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body><script>
+document.addEventListener("DOMContentLoaded", () => {
+  const me = JSON.parse(localStorage.getItem("lspd_me") || "{}");
+  const manageLink = document.querySelector('a[href="manage.html"]');
+  
+  if (manageLink && me.role !== "Admin") {
+    manageLink.style.display = "none"; // Ẩn menu quản lý
+  }
+});
+</script>
+
+  <header class="navbar">
+  <a href="dashboard.html">Trang Chủ</a> | 
+  <a href="duty.html">Chấm Công</a> | 
+  <a href="bail.html">Bảo Lãnh Tội Phạm</a> | 
+  <a href="support.html">Hỗ Trợ Xử Án</a> | 
+  <a href="wanted.html">Hỗ Trợ Truy Nã</a> | 
+  <a href="leave.html" >Đơn Xin Nghỉ Phép</a> | 
+  <a href="salary.html">💰 Hệ Số Lương</a> | 
+  <a href="manage.html">Quản Lý</a> | 
+  <a href="#" id="btnLogout">Đăng xuất</a>
+</header>
+
+  <main class="dashboard">
+  <h2>Chấm Công</h2>
+
+  <div id="dutyHeader" class="duty-header">
+    <p>Lương Tháng <span id="monthLabel"></span>: <span id="monthSalary">0$</span></p>
+    <p>Chức Vụ: <span id="role"></span></p>
+    <p>Hệ Số Lương: <span id="rate"></span> $/h</p>
+    <p>Tổng Sự Nghiệp: <span id="careerSalary">0$</span></p>
+    <button id="btnOn" class="btn">On-Duty</button>
+    <button id="btnOff" class="btn alt">Off-Duty</button>
+    <button id="btnExport" class="btn green">Xuất Excel</button>
+  </div>
+
+  <table id="dutyTbl" border="1" cellspacing="0" cellpadding="5">
+    <thead>
+      <tr>
+        <th>Ngày</th>
+        <th>On-Duty</th>
+        <th>Off-Duty</th>
+        <th>Giờ</th>
+        <th>Phút</th> <!-- thêm cột phút -->
+        <th>Lương</th>
+        <th>Trạng thái</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <h3>LỊCH SỬ TỔNG KẾT THÁNG</h3>
+  <table id="monthTbl" border="1" cellspacing="0" cellpadding="5">
+    <thead>
+      <tr>
+        <th>Tháng/Năm</th>
+        <th>Tổng giờ</th>
+        <th>Tổng phút</th> <!-- thêm cột tổng phút -->
+        <th>Tổng lương</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</main>
+
+<!-- Thêm thư viện hỗ trợ xuất Excel -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="script.js"></script>
+
+
+  <script src="script.js"></script>
+</body>
+</html>
+</script>
+
+  <!-- Script chính -->
+  <script src="script.js"></script>
+
+  <!-- Ẩn menu "Quản Lý" nếu không phải Admin -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const me = JSON.parse(localStorage.getItem("lspd_me") || "{}");
+      const manageMenu = document.getElementById("navManage");
+
+      if (manageMenu && me.role !== "Admin") {
+        manageMenu.style.display = "none";
+      }
+    });
+  </script><script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const btnLogout = document.getElementById("btnLogout");
+    if (btnLogout) {
+      btnLogout.addEventListener("click", (e) => {
+        e.preventDefault();
+        localStorage.removeItem("lspd_me"); // xóa session user
+        window.location.href = "dashboard.html"; // quay lại dashboard
+      });
+    }
+  });
+</script>
+</body>
+</html>
+
+</html>

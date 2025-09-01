@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Tác Vụ Chung - LSPD</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: url('background.jpg') no-repeat center center fixed;
+      background-size: cover;
+      font-family: Arial, sans-serif;
+    }
+    .content-box {
+      background: rgba(255,255,255,0.95);
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.3);
+      max-width: 1100px;
+      margin: 30px auto;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+    .task-btn {
+      margin: 10px;
+      padding: 15px;
+      font-weight: bold;
+      font-size: 16px;
+      border-radius: 8px;
+      width: 250px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="dashboard.html">LSSD</a>
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item"><a class="nav-link" href="dashboard.html">Trang Chủ</a></li>
+        <li class="nav-item"><a class="nav-link" href="duty.html">Chấm Công</a></li>
+        <li class="nav-item"><a class="nav-link" href="bail.html">Bảo Lãnh Tội Phạm</a></li>
+        <li class="nav-item"><a class="nav-link" href="support.html">Hỗ Trợ Xử Án</a></li>
+        <li class="nav-item"><a class="nav-link" href="wanted.html">Hỗ Trợ Truy Nã</a></li>
+        <li class="nav-item"><a class="nav-link" href="leave.html">Đơn Xin Nghỉ Phép</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown">Quản Lý</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="manage.html">👮 Nhân Sự</a></li>
+            <li><a class="dropdown-item" href="salary.html">💰 Hệ Số Lương</a></li>
+            <li><a class="dropdown-item" href="timekeeping.html">🕒 Công/Lương</a></li>
+            <li><a class="dropdown-item active" href="tasks.html">⚙️ Tác Vụ Chung</a></li>
+          </ul>
+        </li>
+      </ul>
+      <a href="#" id="btnLogout" class="btn btn-outline-warning btn-sm">Đăng xuất</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="content-box">
+    <h2>⚙️ Tác Vụ Chung</h2>
+    <div class="d-flex flex-wrap justify-content-center">
+      <button class="btn btn-primary task-btn" onclick="exportAll()">📥 Xuất Toàn Bộ Dữ Liệu</button>
+      <button class="btn btn-danger task-btn" onclick="clearData()">🗑 Xóa Dữ Liệu Tạm</button>
+      <button class="btn btn-warning task-btn" onclick="resetSystem()">♻️ Reset Hệ Thống</button>
+      <button class="btn btn-success task-btn" onclick="generateReport()">📊 Báo Cáo Tổng Hợp</button>
+      <button class="btn btn-info task-btn" onclick="manageUsers()">👤 Quản Lý Người Dùng</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+/* ✅ Xuất toàn bộ dữ liệu trong localStorage ra Excel */
+function exportAll(){
+  let allData = {};
+  for(let i=0; i<localStorage.length; i++){
+    let key = localStorage.key(i);
+    try {
+      allData[key] = JSON.parse(localStorage.getItem(key));
+    } catch {
+      allData[key] = localStorage.getItem(key);
+    }
+  }
+  const ws = XLSX.utils.json_to_sheet(Object.entries(allData).map(([k,v])=>({Key:k,Value:JSON.stringify(v)})));
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, "AllData");
+  XLSX.writeFile(wb, "LSSD_AllData.xlsx");
+  alert("✅ Đã xuất toàn bộ dữ liệu!");
+}
+
+/* ✅ Xóa dữ liệu tạm */
+function clearData(){
+  if(confirm("⚠️ Bạn có chắc muốn xóa toàn bộ dữ liệu tạm (không ảnh hưởng nhân sự)?")){
+    localStorage.removeItem("lspd_trash");
+    localStorage.removeItem("lspd_history");
+    alert("🗑 Đã xóa dữ liệu tạm!");
+  }
+}
+
+/* ✅ Reset toàn bộ hệ thống */
+function resetSystem(){
+  if(confirm("⚠️ Cảnh báo: Thao tác này sẽ xóa TẤT CẢ dữ liệu nhân sự, lương, công... Bạn chắc chắn?")){
+    localStorage.clear();
+    alert("♻️ Hệ thống đã được reset!");
+  }
+}
+
+/* ✅ Báo cáo tổng hợp */
+function generateReport(){
+  let users = JSON.parse(localStorage.getItem("lspd_users") || "[]");
+  let report = `📊 Báo Cáo Tổng Hợp\n- Tổng số nhân sự: ${users.length}\n- Ngày tạo báo cáo: ${new Date().toLocaleString()}`;
+  alert(report);
+}
+
+/* ✅ Điều hướng quản lý người dùng */
+function manageUsers(){
+  window.location.href = "manage.html";
+}
+</script>
+</body>
+</html>
+<!DOCTYPE html>
