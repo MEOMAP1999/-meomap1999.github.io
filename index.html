@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Đăng nhập - LSPD</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      margin:0;
+      padding:0;
+      font-family: Arial, sans-serif;
+      background: url('background.jpg') no-repeat center center fixed;
+      background-size: cover;
+    }
+    .login-container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+      width: 350px;
+      background: rgba(0,0,0,0.6);
+      padding: 30px;
+      border-radius: 12px;
+      color: #fff;
+      text-align: center;
+    }
+    .login-container img.logo {
+      width: 80px;
+      margin-bottom: 15px;
+    }
+    .login-container h2 {
+      font-size: 18px;
+      margin-bottom: 20px;
+      line-height: 1.4;
+    }
+    .login-container input {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 6px;
+      outline: none;
+    }
+    .login-container input[type="text"],
+    .login-container input[type="password"] {
+      background: #f5f5f5;
+    }
+    .login-container button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      background: #f39c12;
+      border: none;
+      color: white;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .login-container button:hover {
+      background: #d35400;
+    }
+    .login-container .register {
+      font-size: 12px;
+      margin-top: 5px;
+      display: block;
+      color: #ccc;
+    }
+    .credit {
+      font-size: 11px;
+      color: #bbb;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <!-- Logo -->
+    <img src="Logo.png" alt="Logo" class="logo">
+    <h2>CỤC CẢNH SÁT<br>L.S.P.D Department<br>GTA5VN</h2>
+
+    <form id="loginForm">
+      <input type="text" id="username" placeholder="Tên đăng nhập" required>
+      <input type="password" id="password" placeholder="Mật khẩu" required>
+      <button type="submit">ĐĂNG NHẬP</button>
+    </form>
+
+    <span class="register">Chưa có tài khoản?</span>
+    <p class="credit">© 2025 Designed and developed by Anh Cá - version 0.1</p>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

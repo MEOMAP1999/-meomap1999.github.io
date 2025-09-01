@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="navbar">
+    <a href="dashboard.html">Trang Chủ</a> | 
+    <a href="duty.html">Chấm Công</a> | 
+    <a href="bail.html">Bảo Lãnh Tội Phạm</a> | 
+    <a href="support.html">Hỗ Trợ Xử Án</a> | 
+    <a href="wanted.html">Hỗ Trợ Truy Nã</a> | 
+    <a href="leave.html">Đơn Xin Nghỉ Phép</a> | 
+    <a href="salary.html">💰 Hệ Số Lương</a> |
+    <a href="manage.html" id="navManage">Quản Lý</a> | 
+    <a href="#" id="btnLogout">Đăng xuất</a>
+  </header>
+
+  <main class="dashboard">
+    <marquee behavior="alternate" style="font-size:60px;">
+      <b style="color: rgba(13, 13, 155, 0.966);" class="rainbow-text">
+        Chào Mừng Đến Với Hệ Thống Quản Lý Nhân Sự L.S.P.D. Department
+      </b>
+    </marquee>
+    <h2>Chào mừng, <span id="welcomeName"></span></h2>
+  </main>
+
+  <!-- Hiệu ứng chữ 7 màu -->
+  <script>
+    const colors = ["red", "orange", "green", "blue", "indigo", "violet"];
+    let currentColorIndex = 0;
+    setInterval(() => {
+      document.querySelectorAll('.rainbow-text').forEach(el => {
+        el.style.color = colors[currentColorIndex];
+      });
+      currentColorIndex = (currentColorIndex + 1) % colors.length;
+    }, 300);
+  </script>
+
+  <!-- Script chính -->
+  <script src="script.js"></script>
+
+  <!-- Ẩn menu "Quản Lý" nếu không phải Admin -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const me = JSON.parse(localStorage.getItem("lspd_me") || "{}");
+      const manageMenu = document.getElementById("navManage");
+
+      if (manageMenu && me.role !== "Admin") {
+        manageMenu.style.display = "none";
+      }
+    });
+  </script><script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const btnLogout = document.getElementById("btnLogout");
+    if (btnLogout) {
+      btnLogout.addEventListener("click", (e) => {
+        e.preventDefault();
+        localStorage.removeItem("lspd_me"); // xóa session user
+        window.location.href = "index.html"; // quay lại login
+      });
+    }
+  });
+</script>
+</body>
+</html>

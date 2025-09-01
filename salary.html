@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>💰 Hệ Số Lương - LSPD</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: url("background.jpg") no-repeat center center fixed;
+      background-size: cover;
+      font-family: Arial, sans-serif;
+    }
+    .box-container {
+      background: rgba(255, 255, 255, 0.92);
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      padding: 20px;
+      margin: 20px auto;
+      max-width: 1100px;
+    }
+    h3 {
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="dashboard.html">Trang Chủ</a>
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item"><a class="nav-link" href="duty.html">Chấm Công</a></li>
+          <li class="nav-item"><a class="nav-link" href="bail.html">Bảo Lãnh Tội Phạm</a></li>
+          <li class="nav-item"><a class="nav-link" href="support.html">Hỗ Trợ Xử Án</a></li>
+          <li class="nav-item"><a class="nav-link" href="wanted.html">Hỗ Trợ Truy Nã</a></li>
+          <li class="nav-item"><a class="nav-link" href="leave.html">Đơn Xin Nghỉ Phép</a></li>
+          <li class="nav-item"><a class="nav-link active" href="salary.html">💰 Hệ Số Lương</a></li>
+          <li class="nav-item"><a class="nav-link" href="manage.html" id="navManage">Quản Lý</a></li>
+        </ul>
+        <span id="currentUser" class="text-white me-3"></span>
+        <a href="#" id="btnLogout" class="btn btn-outline-warning btn-sm">Đăng xuất</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Khung tác vụ -->
+  <div class="box-container">
+    <h3>⚙️ Cập nhật hệ số lương</h3>
+    <div class="row g-3 mb-3">
+      <div class="col-md-4">
+        <select class="form-select">
+          <option>--- Chọn chức vụ ---</option>
+        </select>
+      </div>
+      <div class="col-md-4">
+        <input type="text" class="form-control" placeholder="Lương/giờ">
+      </div>
+      <div class="col-md-4">
+        <button class="btn btn-primary w-100">Cập nhật hệ số</button>
+      </div>
+    </div>
+    <div class="row g-3">
+      <div class="col-md-6">
+        <input type="number" class="form-control" placeholder="Giờ tối đa/ngày">
+      </div>
+      <div class="col-md-6">
+        <button class="btn btn-warning w-100">Cập nhật giờ làm</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Khung bảng lương -->
+  <div class="box-container mt-4">
+    <h3>💰 Hệ Số Lương</h3>
+    <table class="table table-striped table-bordered text-center align-middle">
+      <thead class="table-dark">
+        <tr>
+          <th>Chức vụ</th>
+          <th>Lương/Giờ</th>
+          <th>Giờ tối đa</th>
+          <th>Người cập nhật</th>
+          <th>Thời gian thay đổi</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Thực Tập</td>
+          <td>10.000$</td>
+          <td>4h</td>
+          <td>admin</td>
+          <td>01/09/2025 07:12:56</td>
+        </tr>
+        <tr>
+          <td>Cảnh Sát Viên</td>
+          <td>16.000$</td>
+          <td>4h</td>
+          <td>admin</td>
+          <td>01/09/2025 07:12:56</td>
+        </tr>
+        <tr>
+          <td>Đội Phó</td>
+          <td>20.000$</td>
+          <td>4h</td>
+          <td>admin</td>
+          <td>01/09/2025 07:12:56</td>
+        </tr>
+        <tr>
+          <td>Đội Trưởng</td>
+          <td>24.000$</td>
+          <td>4h</td>
+          <td>admin</td>
+          <td>01/09/2025 07:12:56</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

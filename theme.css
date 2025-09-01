@@ -1,0 +1,68 @@
+/* Nền mặc định */
+body {
+  background: url("background.jpg") no-repeat center center fixed;
+  background-size: cover;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Lớp phủ mờ */
+main, .content-box {
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 10px;
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 1200px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+
+/* Navbar tối màu */
+.navbar {
+  background: rgba(0,0,0,0.7);
+  padding: 10px 20px;
+  color: white;
+}
+
+.navbar a {
+  color: #ffc107;
+  margin-right: 15px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.navbar a:hover {
+  color: #fff;
+}
+
+/* Nút đẹp hơn */
+.btn {
+  background: #ffc107;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn:hover {
+  background: #e0a800;
+  color: white;
+}
+
+/* Bảng nhân sự */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: center;
+}
+
+table th {
+  background: #f8f9fa;
+}
